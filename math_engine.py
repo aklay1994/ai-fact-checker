@@ -2,6 +2,7 @@ import nltk
 from nltk.tokenize import sent_tokenize
 import numpy as np
 from sentence_transformers import SentenceTransformer
+import re
 
 # loading the pretrained model from hugging face
 model = SentenceTransformer("sentence-transformers/all-MiniLM-L6-v2")
@@ -42,3 +43,6 @@ def compute_similarity_matrix(source_embeddings: np.ndarray, summary_embeddings:
     similarity_matrix = summary_embeddings @ source_embeddings.T
 
     return np.clip(similarity_matrix, -1.0, 1.0)
+
+def extract_hard_facts(text: str) -> set[str]:
+    
