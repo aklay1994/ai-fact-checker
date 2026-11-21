@@ -1,26 +1,22 @@
-import numpy as np
-from sentence_transformers import SentenceTransformer
+import nltk
+from nltk.tokenize import sent_tokenize
 
-model = SentenceTransformer("sentence-transformers/all-MiniLM-L6-v2")
-
-query = "How do i reset my password?"
-
-candidates = ["Click here to update your billing info",
-              "I forgot my login credentials and need a reset.",
-              "The weather is nice today.",]
+try:
+    nltk.data.find("tokenizers/punkt_tab")
+except LookupError:
+    nltk.download("punkt_tab", quiet=True)
 
 
-# 1. Encode using task-specific methods
-q_emb = model.encode_query(query)
-cand_emb = model.encode_document(candidates)
+def split_sentences(text: str) -> list[str]:
+# Split raw text into clean valid sentences using NLTK's Punkt tokenizer
 
-# 2. Compute similarity directly with the model's built-in method
-# Returns a 2D PyTorch tensor of shape (1, 3)
-scores = model.similarity(q_emb, cand_emb)[0]
- 
-# 3. Extract the max score and best match
-best_idx = scores.argmax().item()
-max_score = scores[best_idx].item()
+    if not text or not text.strip():
+        return []
 
-print(f"Max Score: {max_score:.4f}")
-print(f"Best Match: '{candidates[best_idx]}'")
+    raw_sentences = nltk.sent_tokenize(text.strip())
+
+    # filter out tiny noise fragments (fewer than 3 words)
+
+    clean_sentences =[s.strip() for s in raw_sentences if len(s.split()) >= 3]
+
+    return clean_sentences
