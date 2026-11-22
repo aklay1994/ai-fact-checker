@@ -1,6 +1,6 @@
 # 🔍 No-Hype AI Hallucination & Fact-Checker
 
-**[🚀 Launch Live Interactive App](YOUR_STREAMLIT_APP_URL_HERE)**
+**[🚀 Launch Live Interactive App](https://ai-fact-checker-project2.streamlit.app/)**
 
 A lightweight verification engine that audits AI-generated summaries against original source documents by combining **dense vector cosine similarity** with **symbolic hard-fact verification**.
 
