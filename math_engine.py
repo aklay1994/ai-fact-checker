@@ -131,7 +131,7 @@ def analyze_summary(source_text: str, summary_text: str, model: SentenceTransfor
     overall_score = round((weighted_score_sum / total_words) * 100, 1)if total_words > 0 else 0.0
     total_unverified = sum(len(item["unverified_facts"]) for item in sentence_breakdown)
 
-    return {"overall score": overall_score,"total_unverified_facts": total_unverified, "sentence_breakdown": sentence_breakdown}
+    return {"overall_score": overall_score,"total_unverified_facts": total_unverified, "sentence_breakdown": sentence_breakdown}
 
 if __name__ == "__main__":
     import pprint
